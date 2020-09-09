@@ -63,9 +63,10 @@ natSubConv ty = do
 assertIntIsNat :: TyVar -> Maybe [String]
 assertIntIsNat tv = do
   (KdConvCont _ _) <- natKindConv (tyVarKind tv)
-  let name = show $ getUnique tv
-  let isNat = "(assert (<= 0 " ++ name ++ "))"
-  return [isNat]
+  -- let name = show $ getUnique tv
+  -- let isNat = "(assert (<= 0 " ++ name ++ "))"
+  -- return [isNat]
+  return []
 
 
 natKindConv :: Type -> Maybe KdConvCont
