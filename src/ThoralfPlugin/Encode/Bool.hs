@@ -8,6 +8,7 @@ import TysWiredIn ( boolTyCon, promotedTrueDataCon, promotedFalseDataCon )
 
 import TyCon ( TyCon(..) )
 
+import Debug.Trace (traceM )
 import TcPluginM ( tcLookupTyCon, lookupOrig
                  , findImportedModule, FindResult(..)
                  , TcPluginM
@@ -120,7 +121,9 @@ ifConv ifCon ty = do
   (tycon, types) <- splitTyConApp_maybe ty
   case (tycon == ifCon, types) of
     -- N.B. The first argument is the kind
-    (True, (_ : x : y : z : xs)) -> return $
+    (True, (_ : x : y : z : xs)) -> do
+      traceM "Found a if"
+      return $
         TyConvCont (x :> y :> z :> VNil) VNil ifMaker []
     _ -> Nothing
 
